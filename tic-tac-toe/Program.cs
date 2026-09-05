@@ -1,5 +1,6 @@
 ﻿string gameTitle = "Tic Tac Toe";
 
+
 string[] board =
 {
     "1", "2", "3",
@@ -38,27 +39,11 @@ while (gameRunning)
 
             // Check Player Winner
 
-            bool playerWon =
-                (board[0] == "X" && board[1] == "X" && board[2] == "X") ||
-                (board[3] == "X" && board[4] == "X" && board[5] == "X") ||
-                (board[6] == "X" && board[7] == "X" && board[8] == "X") ||
-
-                (board[0] == "X" && board[3] == "X" && board[6] == "X") ||
-                (board[1] == "X" && board[4] == "X" && board[7] == "X") ||
-                (board[2] == "X" && board[5] == "X" && board[8] == "X") ||
-
-                (board[0] == "X" && board[4] == "X" && board[8] == "X") ||
-                (board[2] == "X" && board[4] == "X" && board[6] == "X");
+            bool playerWon = CheckWinner(board, "X");
 
             if (playerWon)
             {
-                Console.WriteLine();
-
-                Console.WriteLine($"{board[0]} | {board[1]} | {board[2]}");
-                Console.WriteLine("---------");
-                Console.WriteLine($"{board[3]} | {board[4]} | {board[5]}");
-                Console.WriteLine("---------");
-                Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
+                DisplayBoard(board);
 
                 Console.WriteLine("You win!");
 
@@ -81,15 +66,9 @@ while (gameRunning)
 
             // Check Draw
 
-            if (emptyCells.Count == 0)
+            if (IsDraw(board))
             {
-                Console.WriteLine();
-
-                Console.WriteLine($"{board[0]} | {board[1]} | {board[2]}");
-                Console.WriteLine("---------");
-                Console.WriteLine($"{board[3]} | {board[4]} | {board[5]}");
-                Console.WriteLine("---------");
-                Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
+                DisplayBoard(board);
 
                 Console.WriteLine("Draw!");
 
@@ -106,6 +85,15 @@ while (gameRunning)
             int computerIndex = emptyCells[randomIndex];
 
             board[computerIndex] = "O";
+
+            if (CheckWinner(board, "O"))
+            {
+                DisplayBoard(board);
+
+                Console.WriteLine("Computer wins!");
+
+                break;
+            }
         }
         else
         {
@@ -116,4 +104,48 @@ while (gameRunning)
     {
         Console.WriteLine("Please enter a number from 1 to 9.");
     }
+}
+//methods
+
+void DisplayBoard(string[] board)
+{
+    Console.WriteLine();
+
+    Console.WriteLine($"{board[0]} | {board[1]} | {board[2]}");
+    Console.WriteLine("---------");
+    Console.WriteLine($"{board[3]} | {board[4]} | {board[5]}");
+    Console.WriteLine("---------");
+    Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
+}
+
+
+bool CheckWinner(string[] board, string symbol)
+{
+    bool won =
+        (board[0] == symbol && board[1] == symbol && board[2] == symbol) ||
+        (board[3] == symbol && board[4] == symbol && board[5] == symbol) ||
+        (board[6] == symbol && board[7] == symbol && board[8] == symbol) ||
+
+        (board[0] == symbol && board[3] == symbol && board[6] == symbol) ||
+        (board[1] == symbol && board[4] == symbol && board[7] == symbol) ||
+        (board[2] == symbol && board[5] == symbol && board[8] == symbol) ||
+
+        (board[0] == symbol && board[4] == symbol && board[8] == symbol) ||
+        (board[2] == symbol && board[4] == symbol && board[6] == symbol);
+
+    return won;
+}
+
+
+bool IsDraw(string[] board)
+{
+    for (int i = 0; i < board.Length; i++)
+    {
+        if (board[i] != "X" && board[i] != "O")
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
