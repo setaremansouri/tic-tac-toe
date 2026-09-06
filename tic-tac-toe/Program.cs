@@ -8,40 +8,40 @@ string[] board =
     "7", "8", "9"
 };
 
+
 bool gameRunning = true;
+
 
 while (gameRunning)
 {
-    Console.WriteLine();
+    Console.Clear();
 
     Console.WriteLine(gameTitle);
 
-    Console.WriteLine($"{board[0]} | {board[1]} | {board[2]}");
-    Console.WriteLine("---------");
-    Console.WriteLine($"{board[3]} | {board[4]} | {board[5]}");
-    Console.WriteLine("---------");
-    Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
+    DisplayBoard(board);
+
 
     Console.WriteLine("Choose a position from 1 to 9:");
 
     string input = Console.ReadLine();
 
+
     bool isNumber = int.TryParse(input, out int position);
+
 
     if (isNumber && position >= 1 && position <= 9)
     {
         int index = position - 1;
 
+
         if (board[index] != "X" && board[index] != "O")
         {
+            // Player Move
             board[index] = "X";
 
 
             // Check Player Winner
-
-            bool playerWon = CheckWinner(board, "X");
-
-            if (playerWon)
+            if (CheckWinner(board, "X"))
             {
                 DisplayBoard(board);
 
@@ -51,21 +51,7 @@ while (gameRunning)
             }
 
 
-            // Find Empty Cells
-
-            List<int> emptyCells = new List<int>();
-
-            for (int i = 0; i < board.Length; i++)
-            {
-                if (board[i] != "X" && board[i] != "O")
-                {
-                    emptyCells.Add(i);
-                }
-            }
-
-
             // Check Draw
-
             if (IsDraw(board))
             {
                 DisplayBoard(board);
@@ -77,20 +63,26 @@ while (gameRunning)
 
 
             // Computer Move
+            ComputerMove(board);
 
-            Random random = new Random();
 
-            int randomIndex = random.Next(emptyCells.Count);
-
-            int computerIndex = emptyCells[randomIndex];
-
-            board[computerIndex] = "O";
-
+            // Check Computer Winner
             if (CheckWinner(board, "O"))
             {
                 DisplayBoard(board);
 
                 Console.WriteLine("Computer wins!");
+
+                break;
+            }
+
+
+            // Check Draw after Computer Move
+            if (IsDraw(board))
+            {
+                DisplayBoard(board);
+
+                Console.WriteLine("Draw!");
 
                 break;
             }
@@ -105,7 +97,14 @@ while (gameRunning)
         Console.WriteLine("Please enter a number from 1 to 9.");
     }
 }
-//methods
+
+
+
+
+
+// ================= METHODS =================
+
+
 
 void DisplayBoard(string[] board)
 {
@@ -117,6 +116,9 @@ void DisplayBoard(string[] board)
     Console.WriteLine("---------");
     Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
 }
+
+
+
 
 
 bool CheckWinner(string[] board, string symbol)
@@ -133,8 +135,12 @@ bool CheckWinner(string[] board, string symbol)
         (board[0] == symbol && board[4] == symbol && board[8] == symbol) ||
         (board[2] == symbol && board[4] == symbol && board[6] == symbol);
 
+
     return won;
 }
+
+
+
 
 
 bool IsDraw(string[] board)
@@ -147,5 +153,36 @@ bool IsDraw(string[] board)
         }
     }
 
+
     return true;
+}
+
+
+
+
+
+void ComputerMove(string[] board)
+{
+    List<int> emptyCells = new List<int>();
+
+
+    for (int i = 0; i < board.Length; i++)
+    {
+        if (board[i] != "X" && board[i] != "O")
+        {
+            emptyCells.Add(i);
+        }
+    }
+
+
+    Random random = new Random();
+
+
+    int randomIndex = random.Next(emptyCells.Count);
+
+
+    int computerIndex = emptyCells[randomIndex];
+
+
+    board[computerIndex] = "O";
 }
