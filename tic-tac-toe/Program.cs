@@ -163,6 +163,32 @@ bool IsDraw(string[] board)
 
 void ComputerMove(string[] board)
 {
+    // 1. Try to win
+
+    int winningMove = FindWinningMove(board);
+
+    if (winningMove != -1)
+    {
+        board[winningMove] = "O";
+        return;
+    }
+
+
+
+    // 2. Block player
+
+    int blockingMove = FindBlockingMove(board);
+
+    if (blockingMove != -1)
+    {
+        board[blockingMove] = "O";
+        return;
+    }
+
+
+
+    // 3. Random move
+
     List<int> emptyCells = new List<int>();
 
 
@@ -185,4 +211,90 @@ void ComputerMove(string[] board)
 
 
     board[computerIndex] = "O";
+}
+
+
+
+
+
+int FindWinningMove(string[] board)
+{
+    List<int> emptyCells = new List<int>();
+
+
+    for (int i = 0; i < board.Length; i++)
+    {
+        if (board[i] != "X" && board[i] != "O")
+        {
+            emptyCells.Add(i);
+        }
+    }
+
+
+
+    foreach (int cell in emptyCells)
+    {
+        // Test O move
+
+        board[cell] = "O";
+
+
+        if (CheckWinner(board, "O"))
+        {
+            board[cell] = (cell + 1).ToString();
+
+            return cell;
+        }
+
+
+        // Undo test move
+
+        board[cell] = (cell + 1).ToString();
+    }
+
+
+    return -1;
+}
+
+
+
+
+
+int FindBlockingMove(string[] board)
+{
+    List<int> emptyCells = new List<int>();
+
+
+    for (int i = 0; i < board.Length; i++)
+    {
+        if (board[i] != "X" && board[i] != "O")
+        {
+            emptyCells.Add(i);
+        }
+    }
+
+
+
+    foreach (int cell in emptyCells)
+    {
+        // Test X move
+
+        board[cell] = "X";
+
+
+        if (CheckWinner(board, "X"))
+        {
+            board[cell] = (cell + 1).ToString();
+
+            return cell;
+        }
+
+
+        // Undo test move
+
+        board[cell] = (cell + 1).ToString();
+    }
+
+
+    return -1;
 }
