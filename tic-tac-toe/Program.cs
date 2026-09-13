@@ -1,5 +1,9 @@
 ﻿string gameTitle = "Tic Tac Toe";
 
+Console.BackgroundColor = ConsoleColor.White;
+Console.ForegroundColor = ConsoleColor.Black;
+Console.Clear();
+
 
 string[] board =
 {
@@ -14,6 +18,8 @@ bool gameRunning = true;
 
 while (gameRunning)
 {
+    Console.BackgroundColor = ConsoleColor.White;
+    Console.ForegroundColor = ConsoleColor.Black;
     Console.Clear();
 
     Console.WriteLine(gameTitle);
@@ -110,14 +116,33 @@ void DisplayBoard(string[] board)
 {
     Console.WriteLine();
 
-    Console.WriteLine($"{board[0]} | {board[1]} | {board[2]}");
-    Console.WriteLine("---------");
-    Console.WriteLine($"{board[3]} | {board[4]} | {board[5]}");
-    Console.WriteLine("---------");
-    Console.WriteLine($"{board[6]} | {board[7]} | {board[8]}");
+    PrintCell(board[0]);
+    Console.Write(" | ");
+    PrintCell(board[1]);
+    Console.Write(" | ");
+    PrintCell(board[2]);
+
+    Console.WriteLine();
+    Console.WriteLine("---+---+---");
+
+    PrintCell(board[3]);
+    Console.Write(" | ");
+    PrintCell(board[4]);
+    Console.Write(" | ");
+    PrintCell(board[5]);
+
+    Console.WriteLine();
+    Console.WriteLine("---+---+---");
+
+    PrintCell(board[6]);
+    Console.Write(" | ");
+    PrintCell(board[7]);
+    Console.Write(" | ");
+    PrintCell(board[8]);
+
+    Console.WriteLine();
+    Console.WriteLine();
 }
-
-
 
 
 
@@ -297,4 +322,26 @@ int FindBlockingMove(string[] board)
 
 
     return -1;
+}
+
+void PrintCell(string cell)
+{
+    if (cell == "X")
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.Write(cell);
+    }
+    else if (cell == "O")
+    {
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.Write(cell);
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.Write(cell);
+    }
+
+    Console.ForegroundColor = ConsoleColor.Black;
+    Console.BackgroundColor = ConsoleColor.White;
 }
