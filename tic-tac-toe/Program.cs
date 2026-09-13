@@ -338,7 +338,7 @@ void PrintCell(string cell)
     }
     else
     {
-        Console.ForegroundColor = ConsoleColor.White;
+        Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.Write(cell);
     }
 
