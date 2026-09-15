@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Tic Tac Toe</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #dbeafe,
+                #f0f9ff
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 100vh;
+            margin: 0;
+        }
+
+
+        .game {
+            text-align: center;
+
+            background-color: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+
+        .players {
+            margin-bottom: 25px;
+        }
+
+
+        .player-x {
+            color: #0284c7;
+            font-weight: bold;
+        }
+
+
+        .player-o {
+            color: #ea580c;
+            font-weight: bold;
+        }
+
+
+        .board {
+            display: grid;
+
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+
+            gap: 8px;
+
+            justify-content: center;
+        }
+
+
+        .cell {
+            background-color: #f8fafc;
+
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 45px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .cell:hover {
+            background-color: #e0f2fe;
+            border-color: #38bdf8;
+        }
+
+
+        .x {
+            color: #0284c7;
+        }
+
+
+        .o {
+            color: #ea580c;
+        }
+
+
+        .empty {
+            color: #64748b;
+            font-size: 22px;
+        }
+
+
+        .status {
+            margin-top: 25px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            color: #475569;
+        }
+
+
+        button {
+            margin-top: 20px;
+
+            padding: 12px 25px;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            background-color: #22c55e;
+            color: white;
+
+            border: none;
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        button:hover {
+            background-color: #16a34a;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="game">
+
+        <h1>Tic Tac Toe</h1>
+
+
+        <div class="players">
+
+            <span class="player-x">
+                Player: X
+            </span>
+
+            &nbsp;&nbsp;&nbsp;
+
+            <span class="player-o">
+                Computer: O
+            </span>
+
+        </div>
+
+
+        <div class="board">
+
+            <div class="cell empty">1</div>
+
+            <div class="cell empty">2</div>
+
+            <div class="cell empty">3</div>
+
+
+            <div class="cell empty">4</div>
+
+            <div class="cell empty">5</div>
+
+            <div class="cell empty">6</div>
+
+
+            <div class="cell empty">7</div>
+
+            <div class="cell empty">8</div>
+
+            <div class="cell empty">9</div>
+
+        </div>
+
+
+        <div class="status">
+            Game not started!
+        </div>
+
+
+        <button>
+            Start Game
+        </button>
+
+    </div>
+
+</body>
+
+</html>
